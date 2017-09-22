@@ -9,70 +9,67 @@ class Table {
         this.table = field.querySelector('#table');
         this.addRow = this.addRow.bind(this);
         this.addCol = this.addCol.bind(this);
+        this.columnCount = this.columnCount.bind(this);
+        this.rowCount = this.rowCount.bind(this);
+        this.delRow = this.delRow.bind(this);
+        this.delColumn = this.delColumn.bind(this);
 
         this.field.querySelector('button.add-column').onclick = this.addCol;
         this.field.querySelector('button.add-row').onclick = this.addRow;
+        this.field.querySelector('button.delete-row').onclick = this.delRow;
+        this.field.querySelector('button.delete-column').onclick = this.delColumn;
     }
 
     addRow() {
         const tbodyNode = this.table.lastChild;
         let newTr = tbodyNode.firstChild.cloneNode(true);
         tbodyNode.appendChild(newTr);
-        rowCount();
+        this.rowCount();
     }
 
     addCol() {
         let rows = this.table.tBodies[0].rows;
-        let cell = this.table.rows[1].cells.length - 1;
-        console.log(cell);
         for(let i = 0, l = rows.length; i < l; i++) {
             let newCell = rows[i].insertCell(-1);
             newCell.className = 'block__main-table__table__elem';
         }
-        columnCount ();
+        this.columnCount ();
     }
 
     rowCount() {
         let lengthRowBtn = this.table.rows.length;
         console.log(lengthRowBtn);
-        const styleRowBtn = document.getElementsByClassName('row');
+        const styleRowBtn = document.querySelector('button.delete-row');
         if (lengthRowBtn > 4){
-            for(let i = 0; i < styleRowBtn.length; i++) {
-                styleRowBtn[i].style.display = 'block';
-            }
-        }else if (lengthRowBtn <= 4) {
-            for(let i = 0; i < styleRowBtn.length; i++) {
-                styleRowBtn[i].style.display = 'none'
-            }
+            styleRowBtn.style.display = 'block';
+        }else {
+            styleRowBtn.style.display = 'none';
         }
     }
 
     columnCount () {
-        let cellCount = this.table.rows[1].cells.length - 1;
+        let cellCount = this.table.rows[0].cells.length;
         console.log(cellCount);
+        let styleResColumn = document.querySelector('button.delete-column');
         if (cellCount > 4){
-            let styleResColumn = document.getElementsByClassName('reset-column');
-            for(let i = 0; i < styleResColumn.length; i++) {
-                styleResColumn[i].style.display = 'block'
-            }
+            styleResColumn.style.display = 'block';
+        }else {
+            styleResColumn.style.display = 'none';
         }
     }
-}
 
-const delRow = (r) => {
-    let i = r.parentNode.parentNode.rowIndex;
-    document.getElementById("table").deleteRow(i);
-    let lengthRowBtn = document.getElementById("table").rows.length;
-    console.log(lengthRowBtn);
-    if (lengthRowBtn <= 4) {
-        let styleRowBtn = document.getElementsByClassName('row');
-        for(let i = 0; i < styleRowBtn.length; i++) {
-            styleRowBtn[i].style.display = 'none'
-        }
-    } else {
-        let styleRowBtn = document.getElementsByClassName('row');
-        for(let i = 0; i < styleRowBtn.length; i++) {
-            styleRowBtn[i].style.display = 'block'
-        }
+    delRow () {
+        // let i = r.parentNode.parentNode.rowIndex;
+        this.table.deleteRow(-1);
+        this.rowCount();
+    }
+
+    delColumn () {
+        // var index = r.parentNode.parentNode.cellIndex;
+        let rows = this.table.tBodies[0].rows;
+        for (let i = 0, l = rows.length; i < l; i++) {
+            let dellCell = rows[i].deleteCell(2);
+        };
+        this.columnCount ();
     }
 }

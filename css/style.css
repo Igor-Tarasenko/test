@@ -17,8 +17,12 @@ body {
 }
 .block__main-table {
     position: relative;
+    transition: .4s ease;
+    z-index: 1;
 }
 .block__main-table__table {
+    position: relative;
+    z-index: 20;
     width: 100%;
     height: 100%;
     border-collapse: collapse;
@@ -27,12 +31,11 @@ body {
     position: relative;
     width: 200px;
     height: 50px;
-    transition: .4s ease;
 }
-.block__main-table__table__row:hover .delete-row {
+.block__main-table:hover .delete-row {
     opacity: 1;
 }
-.block__main-table__table__row:hover .delete-column {
+.block__main-table:hover .delete-column {
     opacity: 1;
 }
 .block__main-table__table__elem {
@@ -41,24 +44,12 @@ body {
     background: #46aae5;
     border: 2px solid #ffffff;
 }
-.row {
-    opacity: 1;
-    display: none;
-    position: absolute;
-    left: -52px;
-    width: 47px;
-    height: 51px;
-}
-.column {
-    opacity: 1;
-    position: absolute;
-    top: -52px;
-    width: 47px;
-    height: 51px;
-}
 .delete-row {
     opacity: 0;
+    display: none;
     position: absolute;
+    top: 0px;
+    left: -53px;
     color: #ffffff;
     width: 50px;
     height: 52px;
@@ -70,14 +61,12 @@ body {
 .delete-row:hover {
     background: #d45f68;
 }
-.delete-row:hover .delete-column {
-    visibility: hidden;
-}
 .delete-column {
     opacity: 0;
     position: absolute;
     display: none;
     left: -1px;
+    top: -53px;
     width: 52px;
     height: 50px;
     background: #d20505;
@@ -88,9 +77,6 @@ body {
 }
 .delete-column:hover {
     background: #d45f68;
-}
-.delete-column:hover .delete-row{
-    visibility: hidden;
 }
 .add-row {
     opacity: 1;
@@ -107,6 +93,9 @@ body {
 }
 .add-row:hover {
     background: #ffbe4a;
+}
+.add-row:hover .delete-row{
+    opacity: 0!important;
 }
 .add-column {
     opacity: 1;
