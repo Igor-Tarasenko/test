@@ -41,12 +41,12 @@ body {
     border: 2px solid #ffffff;
     transition: .4s ease;
 }
-.block:hover .delete-row {
-    opacity: 1;
-}
-.block:hover .delete-column {
-    opacity: 1;
-}
+/*.block:hover .delete-row {*/
+    /*opacity: 1;*/
+/*}*/
+/*.block:hover .delete-column {*/
+    /*opacity: 1;*/
+/*}*/
 .delete-row {
     opacity: 0;
     display: none;
