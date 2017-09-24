@@ -41,10 +41,10 @@ body {
     border: 2px solid #ffffff;
     transition: .4s ease;
 }
-.block__main-table:hover ~ .delete-row {
+.block:hover .delete-row {
     opacity: 1;
 }
-.block__main-table:hover ~ .delete-column {
+.block:hover .delete-column {
     opacity: 1;
 }
 .delete-row {
@@ -61,7 +61,7 @@ body {
     transition: .4s ease;
     cursor: pointer;
 }
-.delete-row:hover  ~ {
+.delete-row:hover {
     background: #d45f68;
 }
 .delete-column {
@@ -78,7 +78,7 @@ body {
     transition: .4s ease;
     cursor: pointer;
 }
-.delete-column:hover ~ {
+.delete-column:hover {
     background: #d45f68;
 }
 .add-row {

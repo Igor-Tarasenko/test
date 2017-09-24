@@ -1,6 +1,10 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function() {
     const table = new Table(document.querySelector('.block'));
+    document.getElementById('table').addEventListener('mouseover', function(cell) {
+        const styleRowBtn = document.querySelector('button.delete-row');
+        styleRowBtn.style.left = 'cell.offsetTop' + 'px';
+    });
 });
 
 class Table {
@@ -13,11 +17,13 @@ class Table {
         this.rowCount = this.rowCount.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
+        this.mouseOverHandler = this.mouseOverHandler.bind(this);
 
         this.field.querySelector('button.add-column').onclick = this.addCol;
         this.field.querySelector('button.add-row').onclick = this.addRow;
         this.field.querySelector('button.delete-row').onclick = this.delRow;
         this.field.querySelector('button.delete-column').onclick = this.delColumn;
+        this.table.addEventListener('mouseover', this.mouseOverHandler);
     }
 
     addRow() {
@@ -40,7 +46,7 @@ class Table {
         let lengthRowBtn = this.table.rows.length;
         console.log(lengthRowBtn);
         const styleRowBtn = document.querySelector('button.delete-row');
-        if (lengthRowBtn > 4){
+        if (lengthRowBtn > 1){
             styleRowBtn.style.display = 'block';
         }else {
             styleRowBtn.style.display = 'none';
@@ -51,7 +57,7 @@ class Table {
         let cellCount = this.table.rows[0].cells.length;
         console.log(cellCount);
         let styleResColumn = document.querySelector('button.delete-column');
-        if (cellCount > 4){
+        if (cellCount > 1){
             styleResColumn.style.display = 'block';
         }else {
             styleResColumn.style.display = 'none';
@@ -68,8 +74,20 @@ class Table {
         // var index = r.parentNode.parentNode.cellIndex;
         let rows = this.table.tBodies[0].rows;
         for (let i = 0, l = rows.length; i < l; i++) {
-            let dellCell = rows[i].deleteCell(2);
+            let dellCell = rows[i].deleteCell(-1);
         };
         this.columnCount ();
+    }
+
+    mouseOverHandler () {
+        if (event.target instanceof HTMLTableCellElement) {
+            const cell = event.target;
+            // this.moveColRemoveButton(cell);
+            this.moveRowRemoveButton(cell);
+        }
+    }
+
+    moveRowRemoveButton(cell) {
+        this.field.querySelector('button.delete-row').style.top = 'cell.offsetTop' + 'px';
     }
 }
