@@ -1,25 +1,17 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function() {
-    const table = new Table(document.querySelector('.block'));
+    const table = new Table(document.querySelector('.field'));
     const styleRowBtn = document.querySelector('button.delete-row');
     const styleColBtn = document.querySelector('button.delete-column')
     document.getElementById('table').addEventListener('mouseover', function() {
-        styleRowBtn.style.background = '#d20505';
         styleRowBtn.style.opacity = '1';
-        styleRowBtn.style.transition = '.4s'
         styleColBtn.style.opacity = '1';
-        styleColBtn.style.background = '#d20505';
-        styleColBtn.style.transition = '.4s'
     });
     styleRowBtn.addEventListener('mouseover', function() {
         styleRowBtn.style.opacity = '1';
-        styleRowBtn.style.background = '#d45f68';
-        styleRowBtn.style.transition = '.6s';
     });
     styleColBtn.addEventListener('mouseover', function() {
         styleColBtn.style.opacity = '1';
-        styleColBtn.style.background = '#d45f68';
-        styleColBtn.style.transition = '.6s';
     });
     styleRowBtn.addEventListener('mouseleave', function() {
         styleRowBtn.style.opacity = '0';
@@ -49,10 +41,10 @@ class Table {
         this.cellTarget = null;
 
 
-        this.field.querySelector('button.add-column').onclick = this.addCol;
-        this.field.querySelector('button.add-row').onclick = this.addRow;
-        this.field.querySelector('button.delete-row').onclick = this.delRow;
-        this.field.querySelector('button.delete-column').onclick = this.delColumn;
+        this.field.querySelector('button.add-column').addEventListener('click', this.addCol);
+        this.field.querySelector('button.add-row').addEventListener('click', this.addRow);
+        this.field.querySelector('button.delete-row').addEventListener('click', this.delRow);
+        this.field.querySelector('button.delete-column').addEventListener('click', this.delColumn);
         this.table.addEventListener('mouseover', this.mouseOver);
     }
 
@@ -66,11 +58,11 @@ class Table {
     }
 
     moveColButton(cell) {
-        this.deleteColBtn.style.left = 'cell.offsetLeft' + 'px';
+        this.deleteColBtn.style.left = cell.offsetLeft + 'px';
     }
 
     moveRowButton(cell) {
-        this.deleteRowBtn.style.top = 'cell.offsetTop' + 'px';
+        this.deleteRowBtn.style.top = cell.offsetTop + 'px';
     }
 
     catchCellRemoveTarget(targetCell) {
@@ -114,27 +106,17 @@ class Table {
     }
 
     delRow () {
-        this.table.deleteRow(-1);
+        this.cellTarget.parentElement.remove();
         this.rowCount();
     }
 
     delColumn () {
         let rows = this.table.tBodies[0].rows;
+        let cell = this.cellTarget.parentElement.children;
+        let collIndex = [].indexOf.call(cell, this.cellTarget);
         for (let i = 0, l = rows.length; i < l; i++) {
-            let dellCell = rows[i].deleteCell(-1);
+            let dellCell = rows[i].deleteCell(collIndex);
         };
         this.columnCount ();
     }
-
-    // mouseOver () {
-    //     if (event.target instanceof HTMLTableCellElement) {
-    //         const cell = event.target;
-    //         this.moveColButton(cell);
-    //         this.moveRowButton(cell);
-    //     }
-    // }
-    //
-    // moveRowRemoveButton(cell) {
-    //     this.field.querySelector('button.delete-row').style.top = 'cell.offsetTop' + 'px';
-    // }
 }
