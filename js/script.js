@@ -43,13 +43,38 @@ class Table {
         this.rowCount = this.rowCount.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
-        // this.mouseOver = this.mouseOver.bind(this);
+        this.mouseOver = this.mouseOver.bind(this);
+        this.deleteRowBtn = this.field.querySelector('button.delete-row');
+        this.deleteColBtn = this.field.querySelector('button.delete-column');
+        this.cellTarget = null;
+
 
         this.field.querySelector('button.add-column').onclick = this.addCol;
         this.field.querySelector('button.add-row').onclick = this.addRow;
         this.field.querySelector('button.delete-row').onclick = this.delRow;
         this.field.querySelector('button.delete-column').onclick = this.delColumn;
-        // this.table.addEventListener('mouseover', this.mouseOver);
+        this.table.addEventListener('mouseover', this.mouseOver);
+    }
+
+    mouseOver(event) {
+        if (event.target instanceof HTMLTableCellElement) {
+            const cell = event.target;
+            this.moveColButton(cell);
+            this.moveRowButton(cell);
+            this.catchCellRemoveTarget(cell);
+        }
+    }
+
+    moveColButton(cell) {
+        this.deleteColBtn.style.left = 'cell.offsetLeft' + 'px';
+    }
+
+    moveRowButton(cell) {
+        this.deleteRowBtn.style.top = 'cell.offsetTop' + 'px';
+    }
+
+    catchCellRemoveTarget(targetCell) {
+        this.cellTarget = targetCell;
     }
 
     addRow() {
@@ -70,7 +95,6 @@ class Table {
 
     rowCount() {
         let lengthRowBtn = this.table.rows.length;
-        console.log(lengthRowBtn);
         const styleRowBtn = document.querySelector('button.delete-row');
         if (lengthRowBtn > 1){
             styleRowBtn.style.display = 'block';
@@ -81,7 +105,6 @@ class Table {
 
     columnCount () {
         let cellCount = this.table.rows[0].cells.length;
-        console.log(cellCount);
         let styleResColumn = document.querySelector('button.delete-column');
         if (cellCount > 1){
             styleResColumn.style.display = 'block';
