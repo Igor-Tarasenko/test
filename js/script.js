@@ -80,7 +80,7 @@ class Table {
         let rows = this.table.tBodies[0].rows;
         for(let i = 0, l = rows.length; i < l; i++) {
             let newCell = rows[i].insertCell(-1);
-            newCell.className = 'block__main-table__table__elem';
+            newCell.className = 'field__main-table__table__elem';
         }
         this.columnCount ();
     }
