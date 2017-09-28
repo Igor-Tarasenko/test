@@ -4,23 +4,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 class Table {
-    constructor(field){
+    constructor(field) {
         this.field = field;
-        this.table = field.querySelector('#table');
+        this.table = field.querySelector('.field__main-table-table');
         this.addRow = this.addRow.bind(this);
         this.addCol = this.addCol.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
         this.mouseOver = this.mouseOver.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
-        this.showAllBtn = this.showAllBtn.bind(this);
         this.hideAllBtn = this.hideAllBtn.bind(this);
         this.changeStyleRowBtn = this.changeStyleRowBtn.bind(this);
         this.changeStyleColBtn = this.changeStyleColBtn.bind(this);
         this.showResetRowBtn = this.showResetRowBtn.bind(this);
         this.showResetColBtn = this.showResetColBtn.bind(this);
-        this.hideResetRowBtn = this.hideResetRowBtn.bind(this);
-        this.hideResetColBtn = this.hideResetColBtn.bind(this);
         this.deleteRowBtn = this.field.querySelector('button.field__btn-delete-row');
         this.deleteColBtn = this.field.querySelector('button.field__btn-delete-column');
         this.addColBtn = this.field.querySelector('button.field__btn-add-column');
@@ -34,10 +31,10 @@ class Table {
         this.addRowBtn.addEventListener('click', this.addRow);
         this.deleteRowBtn.addEventListener('click', this.delRow);
         this.deleteRowBtn.addEventListener('mouseover', this.showResetRowBtn);
-        this.deleteRowBtn.addEventListener('mouseleave', this.hideResetRowBtn);
+        this.deleteRowBtn.addEventListener('mouseleave', this.mouseLeave);
         this.deleteColBtn.addEventListener('click', this.delColumn);
         this.deleteColBtn.addEventListener('mouseover', this.showResetColBtn);
-        this.deleteColBtn.addEventListener('mouseleave', this.hideResetColBtn);
+        this.deleteColBtn.addEventListener('mouseleave', this.mouseLeave);
         this.table.addEventListener('mouseover', this.mouseOver);
         this.table.addEventListener('mouseleave', this.mouseLeave);
     }
@@ -49,7 +46,8 @@ class Table {
             this.moveRowButton(cell);
             this.catchCellRemoveTarget(cell);
         }
-        this.showAllBtn();
+        this.changeStyleRowBtn();
+        this.changeStyleColBtn();
     }
 
     mouseLeave() {
@@ -59,10 +57,6 @@ class Table {
         );
     }
 
-    showAllBtn() {
-        this.deleteRowBtn.style.display = 'block';
-        this.deleteColBtn.style.display = 'block';
-    }
 
     hideAllBtn() {
         this.deleteRowBtn.style.display = 'none';
@@ -75,9 +69,6 @@ class Table {
         clearTimeout(this.hideTimer);
     }
 
-    hideResetColBtn() {
-        this.deleteColBtn.style.display = 'none';
-    }
 
     showResetRowBtn() {
         this.deleteRowBtn.style.display = 'block';
@@ -85,9 +76,6 @@ class Table {
         clearTimeout(this.hideTimer);
     }
 
-    hideResetRowBtn() {
-        this.deleteRowBtn.style.display = 'none';
-    }
 
     moveColButton(cell) {
         this.deleteColBtn.style.left = cell.offsetLeft + 'px';
@@ -110,45 +98,47 @@ class Table {
 
     addCol() {
         let rows = this.table.tBodies[0].rows;
-        for(let i = 0, l = rows.length; i < l; i++) {
+        for (let i = 0, l = rows.length; i < l; i++) {
             let newCell = rows[i].insertCell(-1);
-            newCell.className = 'field__main-table elem';
+            newCell.className = 'field__main-table-cell';
         }
         this.changeStyleColBtn();
     }
 
     changeStyleColBtn() {
-        let cellCount = this.table.rows[0].cells.length;
-        let styleResColumn = document.querySelector('button.field__btn-delete-column');
-        if (cellCount > 1){
-            styleResColumn.style.display = 'block';
-        }else {
-            styleResColumn.style.display = 'none';
+        let Countcells = this.table.rows[0].cells.length;
+        if (Countcells > 1) {
+            this.deleteColBtn.style.display = 'block';
+        } else {
+            this.deleteColBtn.style.display = 'none';
         }
     }
 
     changeStyleRowBtn() {
-        let lengthRowBtn = this.table.rows.length;
-        const styleRowBtn = document.querySelector('button.field__btn-delete-row');
-        if (lengthRowBtn > 1){
-            styleRowBtn.style.display = 'block';
-        }else {
-            styleRowBtn.style.display = 'none';
+        let lengthRow = this.table.rows.length;
+        if (lengthRow > 1) {
+            this.deleteRowBtn.style.display = 'block';
+        } else {
+            this.deleteRowBtn.style.display = 'none';
         }
     }
 
-    delRow () {
+    delRow() {
         this.cellTarget.parentElement.remove();
         this.changeStyleRowBtn();
+        this.hideAllBtn();
     }
 
-    delColumn () {
+    delColumn() {
         let rows = this.table.tBodies[0].rows;
         let cell = this.cellTarget.parentElement.children;
         let collIndex = [].indexOf.call(cell, this.cellTarget);
         for (let i = 0, l = rows.length; i < l; i++) {
             let dellCell = rows[i].deleteCell(collIndex);
-        };
-        this.changeStyleColBtn ();
+        }
+        ;
+        this.changeStyleColBtn();
+        this.hideAllBtn();
+
     }
 }

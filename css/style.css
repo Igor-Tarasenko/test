@@ -14,13 +14,12 @@ body {
 .field__main-table {
     position: relative;
 }
-.elem {
-    z-index: 50;
+.field__main-table-cell {
     width: 48px;
     height: 48px;
     background: #46aae5;
 }
-.btn {
+.field__btn {
     position: absolute;
     width: 48px;
     height: 48px;
@@ -34,7 +33,7 @@ body {
     right: 100%;
     background: #d20505;
     margin-right: 3px;
-    transition: background-color .5s;
+    transition: background-color 1.7s;
 }
 .field__btn-delete-row:hover {
     background: #d45f68;
@@ -45,17 +44,15 @@ body {
     bottom: 100%;
     background: #d20505;
     margin-bottom: 3px;
-    transition: background-color .5s;
+    transition: background-color 1.7s;
 }
 .field__btn-delete-column:hover {
     background: #d45f68;
 }
 .field__btn-add-row {
     display: block;
-    top: 100%;
-    left: 0;
     background: #fa982b;
-    transition: .4s ease;
+    transition: 1s ease;
     cursor: pointer;
     margin-top: 3px;
 }
@@ -65,9 +62,9 @@ body {
 .field__btn-add-column {
     display: block;
     left: 100%;
-    top: 0px;
+    top: 0;
     background: #fa982b;
-    transition: .4s ease;
+    transition: 1s ease;
     margin-left: 3px;
 }
 .field__btn-add-column:hover {
