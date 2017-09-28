@@ -9,8 +9,6 @@ class Table {
         this.table = field.querySelector('#table');
         this.addRow = this.addRow.bind(this);
         this.addCol = this.addCol.bind(this);
-        this.columnCount = this.columnCount.bind(this);
-        this.rowCount = this.rowCount.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
         this.mouseOver = this.mouseOver.bind(this);
@@ -25,19 +23,21 @@ class Table {
         this.hideResetColBtn = this.hideResetColBtn.bind(this);
         this.deleteRowBtn = this.field.querySelector('button.field__btn-delete-row');
         this.deleteColBtn = this.field.querySelector('button.field__btn-delete-column');
+        this.addColBtn = this.field.querySelector('button.field__btn-add-column');
+        this.addRowBtn = this.field.querySelector('button.field__btn-add-row');
         this.cellTarget = null;
         this.timer = 2000;
         this.hideTimer = 0;
 
 
-        this.field.querySelector('button.field__btn-add-column').addEventListener('click', this.addCol);
-        this.field.querySelector('button.field__btn-add-row').addEventListener('click', this.addRow);
-        this.field.querySelector('button.field__btn-delete-row').addEventListener('click', this.delRow);
-        this.field.querySelector('button.field__btn-delete-row').addEventListener('mouseover', this.showResetRowBtn);
-        this.field.querySelector('button.field__btn-delete-row').addEventListener('mouseleave', this.hideResetRowBtn);
-        this.field.querySelector('button.field__btn-delete-column').addEventListener('click', this.delColumn);
-        this.field.querySelector('button.field__btn-delete-column').addEventListener('mouseover', this.showResetColBtn);
-        this.field.querySelector('button.field__btn-delete-column').addEventListener('mouseleave', this.hideResetColBtn);
+        this.addColBtn.addEventListener('click', this.addCol);
+        this.addRowBtn.addEventListener('click', this.addRow);
+        this.deleteRowBtn.addEventListener('click', this.delRow);
+        this.deleteRowBtn.addEventListener('mouseover', this.showResetRowBtn);
+        this.deleteRowBtn.addEventListener('mouseleave', this.hideResetRowBtn);
+        this.deleteColBtn.addEventListener('click', this.delColumn);
+        this.deleteColBtn.addEventListener('mouseover', this.showResetColBtn);
+        this.deleteColBtn.addEventListener('mouseleave', this.hideResetColBtn);
         this.table.addEventListener('mouseover', this.mouseOver);
         this.table.addEventListener('mouseleave', this.mouseLeave);
     }
@@ -117,13 +117,6 @@ class Table {
         this.changeStyleColBtn();
     }
 
-    rowCount() {
-        this.changeStyleRowBtn();
-    }
-
-    columnCount () {
-        this.changeStyleColBtn();
-    }
     changeStyleColBtn() {
         let cellCount = this.table.rows[0].cells.length;
         let styleResColumn = document.querySelector('button.field__btn-delete-column');
@@ -146,7 +139,7 @@ class Table {
 
     delRow () {
         this.cellTarget.parentElement.remove();
-        this.rowCount();
+        this.changeStyleRowBtn();
     }
 
     delColumn () {
@@ -156,6 +149,6 @@ class Table {
         for (let i = 0, l = rows.length; i < l; i++) {
             let dellCell = rows[i].deleteCell(collIndex);
         };
-        this.columnCount ();
+        this.changeStyleColBtn ();
     }
 }
