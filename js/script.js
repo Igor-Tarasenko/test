@@ -48,6 +48,7 @@ class Table {
         }
         this.changeStyleRowBtn();
         this.changeStyleColBtn();
+        clearTimeout(this.hideTimer);
     }
 
     mouseLeave() {

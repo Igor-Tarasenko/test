@@ -4,7 +4,7 @@
     outline: none;
 }
 body {
-    width: 98vw;
+    width: 100%;
 }
 .field {
     display: inline-block;
@@ -15,17 +15,19 @@ body {
     position: relative;
 }
 .field__main-table-cell {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     background: #46aae5;
 }
 .field__btn {
     position: absolute;
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     border: none;
     color: #ffffff;
     cursor: pointer;
+    transition: .5s ease;
+    border-radius: 0;
 }
 .field__btn-delete-row {
     display: none;
@@ -33,9 +35,8 @@ body {
     right: 100%;
     background: #d20505;
     margin-right: 3px;
-    transition: background-color 1.7s;
 }
-.field__btn-delete-row:hover {
+.field__btn-delete-row:hover, .field__btn-delete-column:hover {
     background: #d45f68;
 }
 .field__btn-delete-column {
@@ -44,19 +45,14 @@ body {
     bottom: 100%;
     background: #d20505;
     margin-bottom: 3px;
-    transition: background-color 1.7s;
-}
-.field__btn-delete-column:hover {
-    background: #d45f68;
 }
 .field__btn-add-row {
     display: block;
     background: #fa982b;
-    transition: 1s ease;
-    cursor: pointer;
     margin-top: 3px;
+    margin-left: 2px;
 }
-.field__btn-add-row:hover {
+.field__btn-add-row:hover, .field__btn-add-column:hover {
     background: #ffbe4a;
 }
 .field__btn-add-column {
@@ -64,9 +60,6 @@ body {
     left: 100%;
     top: 0;
     background: #fa982b;
-    transition: 1s ease;
     margin-left: 3px;
-}
-.field__btn-add-column:hover {
-    background: #ffbe4a;
+    margin-top: 2px;
 }
