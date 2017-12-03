@@ -1,13 +1,23 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function() {
     const table = new Table(document.querySelector('.field'));
+    var bind2 = function(fn, context) {
+        // обрезаем ненужные аргументы (функцию и контекст)
+        var bindArgs = [].slice.call(arguments, 2);
+        return function() {
+            // здесь все аргументы будут необходимы
+            var fnArgs = [].slice.call(arguments);
+            // собираем все
+            return fn.apply(context, bindArgs.concat(fnArgs));
+        };
+    };
 });
 
 class Table {
     constructor(field) {
         this.field = field;
         this.table = field.querySelector('.field__main-table-table');
-        this.addRow = this.addRow.bind(this);
+        this.addRow = this.addRow.bind2(this);
         this.addCol = this.addCol.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
@@ -37,6 +47,14 @@ class Table {
         this.deleteColBtn.addEventListener('mouseleave', this.mouseLeave);
         this.table.addEventListener('mouseover', this.mouseOver);
         this.table.addEventListener('mouseleave', this.mouseLeave);
+
+    }
+    bind2 (fn, context) {
+        const bind2Args = [].slice.call(arguments, 2);
+        return function () {
+            const fnArgs = [].slice.call(arguments);
+            return fn.apply(context, bind2Args.concat(fnArgs));
+        }
     }
 
     mouseOver(event) {
@@ -91,7 +109,7 @@ class Table {
     }
 
     addRow() {
-        const tbodyNode = this.table.lastChild;
+        let tbodyNode = this.table.lastChild;
         let newTr = tbodyNode.firstChild.cloneNode(true);
         tbodyNode.appendChild(newTr);
         this.changeStyleRowBtn();
