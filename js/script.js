@@ -17,7 +17,7 @@ class Table {
     constructor(field) {
         this.field = field;
         this.table = field.querySelector('.field__main-table-table');
-        this.addRow = this.addRow.bind2(this);
+        this.addRow = this.bind2(this.addRow, this);
         this.addCol = this.addCol.bind(this);
         this.delRow = this.delRow.bind(this);
         this.delColumn = this.delColumn.bind(this);
