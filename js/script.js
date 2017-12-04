@@ -14,6 +14,8 @@ class Table {
         this.mouseOver = this.mouseOver.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.hideAllBtn = this.hideAllBtn.bind(this);
+        this.showResetRowBtn = this.showResetRowBtn.bind(this);
+        this.showResetColBtn = this.showResetColBtn.bind(this);
         this.deleteRowBtn = this.field.querySelector('button.field__btn-delete-row');
         this.deleteColBtn = this.field.querySelector('button.field__btn-delete-column');
         this.addColBtn = this.field.querySelector('button.field__btn-add-column');
