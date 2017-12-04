@@ -1,16 +1,6 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function() {
     const table = new Table(document.querySelector('.field'));
-    var bind2 = function(fn, context) {
-        // обрезаем ненужные аргументы (функцию и контекст)
-        var bindArgs = [].slice.call(arguments, 2);
-        return function() {
-            // здесь все аргументы будут необходимы
-            var fnArgs = [].slice.call(arguments);
-            // собираем все
-            return fn.apply(context, bindArgs.concat(fnArgs));
-        };
-    };
 });
 
 class Table {
@@ -24,10 +14,6 @@ class Table {
         this.mouseOver = this.mouseOver.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.hideAllBtn = this.hideAllBtn.bind(this);
-        this.changeStyleRowBtn = this.changeStyleRowBtn.bind(this);
-        this.changeStyleColBtn = this.changeStyleColBtn.bind(this);
-        this.showResetRowBtn = this.showResetRowBtn.bind(this);
-        this.showResetColBtn = this.showResetColBtn.bind(this);
         this.deleteRowBtn = this.field.querySelector('button.field__btn-delete-row');
         this.deleteColBtn = this.field.querySelector('button.field__btn-delete-column');
         this.addColBtn = this.field.querySelector('button.field__btn-add-column');
